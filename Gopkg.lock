@@ -631,6 +631,11 @@
   revision = "21300e3e11c918b8e6a70fb7293b310683d6c046"
   version = "v3.0.0"
 
+[[projects]]
+  name = "github.com/miekg/dns"
+  packages = ["."]
+  version = "1.0.7"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1

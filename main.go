@@ -167,7 +167,7 @@ func main() {
     			ZoneName:    dns.Fqdn(zone),
     			TsigKeyName: strings.TrimSuffix(keyname, ".") + ".",
     			TsigSecret:  keysecret,
-    			Insecure:    false,
+    			Insecure:    insecure,
 			}
 		)
 	case "inmemory":
