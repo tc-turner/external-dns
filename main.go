@@ -133,6 +133,43 @@ func main() {
 				AppVersion:    externaldns.Version,
 			},
 		)
+	case "rfc2136":
+		var host, port, zone, keyname, keysecret string
+		insecure := false
+		if val, ok := os.LookupEnv("RFC2136_HOST"); ok {
+			host = val
+		}
+		if val, ok := os.LookupEnv("RFC2136_PORT"); ok {
+			port = val
+		}
+		if val, ok := os.LookupEnv("RFC2136_ZONE_NAME"); ok {
+			zone = val
+		}
+		if val, ok := os.LookupEnv("RFC2136_TSIG_KEY_NAME"); ok {
+			keyname = val
+		}
+		if val, ok := os.LookupEnv("RFC2136_TSIG_SECRET"); ok {
+			keysecret = val
+		}
+		if val, ok := os.LookupEnv("RFC2136_TSIG_SECRET"); ok {
+			keysecret = val
+		}
+		if val, ok := os.LookupEnv("RFC2136_INSECURE"); ok {
+			val, err := strconv.ParseBool(val)
+			if err != nil {
+				insecure = false
+			}
+			insecure = val
+		}
+		p, err = provider.NewRFC2136Provider(
+			provider.RFC2136ProviderConfig{
+				Nameserver:  net.JoinHostPort(host, port),
+    			ZoneName:    dns.Fqdn(zone),
+    			TsigKeyName: strings.TrimSuffix(keyname, ".") + ".",
+    			TsigSecret:  keysecret,
+    			Insecure:    false,
+			}
+		)
 	case "inmemory":
 		p, err = provider.NewInMemoryProvider(provider.InMemoryInitZones(cfg.InMemoryZones), provider.InMemoryWithDomain(domainFilter), provider.InMemoryWithLogging()), nil
 	case "designate":
