@@ -388,17 +388,6 @@
   packages = ["ssh/terminal"]
   revision = "d172538b2cfce0c13cee31e647d0367aa8cd2486"
 
-[[projects]]
-  name = "golang.org/x/net"
-  packages = [
-    "context",
-    "context/ctxhttp",
-    "http2",
-    "http2/hpack",
-    "idna",
-    "lex/httplex"
-  ]
-  branch = "master"
 
 [[projects]]
   name = "golang.org/x/oauth2"
