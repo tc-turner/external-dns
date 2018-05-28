@@ -25,11 +25,14 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	log "github.com/sirupsen/logrus"
 
-	_ "k8s.io/client-go/plugin/pkg/client/auth"
 	"net"
-	"github.com/miekg/dns"	
-	"strings"
+
 	"strconv"
+	"strings"
+
+	"github.com/miekg/dns"
+	_ "k8s.io/client-go/plugin/pkg/client/auth"
+
 	"github.com/kubernetes-incubator/external-dns/controller"
 	"github.com/kubernetes-incubator/external-dns/pkg/apis/externaldns"
 	"github.com/kubernetes-incubator/external-dns/pkg/apis/externaldns/validation"
@@ -167,10 +170,10 @@ func main() {
 		p, err = provider.NewRFC2136Provider(
 			provider.RFC2136ProviderConfig{
 				Nameserver:  net.JoinHostPort(host, port),
-    			ZoneName:    dns.Fqdn(zone),
-    			TsigKeyName: strings.TrimSuffix(keyname, ".") + ".",
-    			TsigSecret:  keysecret,
-    			Insecure:    insecure,
+				ZoneName:    dns.Fqdn(zone),
+				TsigKeyName: strings.TrimSuffix(keyname, ".") + ".",
+				TsigSecret:  keysecret,
+				Insecure:    insecure,
 			},
 		)
 	case "inmemory":
