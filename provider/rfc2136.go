@@ -25,7 +25,7 @@ type RFC2136Provider struct {
 }
 
 // ApplyChanges takes a list of changes (endpoints) and updates the remote server
-func (r *RFC2136Provider) ApplyChanges(changes *plan.Changes) error {
+func (r RFC2136Provider) ApplyChanges(changes *plan.Changes) error {
 
 	startTime := time.Now()
 
@@ -72,12 +72,14 @@ func (r *RFC2136Provider) ApplyChanges(changes *plan.Changes) error {
 		}
 	}
 
-	log.Debugf("Changes pushed out to PowerDNS in %s\n", time.Since(startTime))
+	log.Debugf("Changes pushed out to DNS in %s\n", time.Since(startTime))
+	log.Debugf("Changes pushed out to DNS: %s\n", r.Config.Nameserver)
+
 	return nil
 }
 
 // Records returns all DNS records controlled by the configured DNS server for the specified zone
-func (r *RFC2136Provider) Records() ([]*endpoint.Endpoint, error) {
+func (r RFC2136Provider) Records() ([]*endpoint.Endpoint, error) {
 	// log.SetLevel(log.DebugLevel)
 	log.Debugf("Fetching records for '%s'", r.Config.ZoneName)
 	t := new(dns.Transfer)
@@ -152,7 +154,7 @@ func (r *RFC2136Provider) AddRecord(record endpoint.Endpoint) error {
 	m := new(dns.Msg)
 	m.SetUpdate(r.Config.ZoneName)
 	rrs := make([]dns.RR, 0)
-	log.Debugf("Adding RR: '%s %d %s %s'", record.DNSName, record.RecordTTL, record.RecordType, record.Targets)
+	log.Infof("Adding RR: '%s %d %s %s'", record.DNSName, record.RecordTTL, record.RecordType, record.Targets)
 	rr, err := dns.NewRR(fmt.Sprintf("%s %d %s %s", record.DNSName, record.RecordTTL, record.RecordType, record.Targets))
 	if err != nil {
 		return fmt.Errorf("Failed to build RR: %v", err)
@@ -170,7 +172,7 @@ func (r *RFC2136Provider) AddRecord(record endpoint.Endpoint) error {
 
 //RemoveRecord removes tha ctual entry from DNS
 func (r *RFC2136Provider) RemoveRecord(record endpoint.Endpoint) error {
-	log.Debugf("Removing RRset '%s %s'", record.DNSName, record.RecordType)
+	log.Infof("Removing RRset '%s %s'", record.DNSName, record.RecordType)
 	m := new(dns.Msg)
 	m.SetUpdate(r.Config.ZoneName)
 	rr, err := dns.NewRR(fmt.Sprintf("%s 0 %s 0.0.0.0", record.DNSName, record.RecordType))
