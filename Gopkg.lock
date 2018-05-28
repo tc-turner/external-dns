@@ -235,7 +235,17 @@
 [[projects]]
   branch = "master"
   name = "github.com/gophercloud/gophercloud"
-  packages = ["."]
+  packages = [
+    ".",
+    "openstack",
+    "openstack/dns/v2/recordsets",
+    "openstack/dns/v2/zones",
+    "openstack/identity/v2/tenants",
+    "openstack/identity/v2/tokens",
+    "openstack/identity/v3/tokens",
+    "openstack/utils",
+    "pagination"
+  ]
   revision = "bfc4756e1a693a850d7d459f4b28b21f35a24b5a"
 
 [[projects]]
@@ -271,6 +281,23 @@
   revision = "77ed1c8a01217656d2080ad51981f6e99adaa177"
 
 [[projects]]
+  name = "github.com/kubernetes-incubator/external-dns"
+  packages = [
+    "controller",
+    "endpoint",
+    "internal/testutils",
+    "pkg/apis/externaldns",
+    "pkg/apis/externaldns/validation",
+    "pkg/tlsutils",
+    "plan",
+    "provider",
+    "registry",
+    "source"
+  ]
+  revision = "960151a5ac9911736c22cd1c4825e95682e16f93"
+  version = "v0.5.1"
+
+[[projects]]
   name = "github.com/kubernetes/repo-infra"
   packages = ["verify/boilerplate/test"]
   revision = "2d2eb5e12b4663fc4d764b5db9daab39334d3f37"
@@ -295,6 +322,12 @@
   name = "github.com/matttproud/golang_protobuf_extensions"
   packages = ["pbutil"]
   revision = "c12348ce28de40eed0136aa2b644d0ee0650e56c"
+
+[[projects]]
+  name = "github.com/miekg/dns"
+  packages = ["."]
+  revision = "e57bf427e68187a27e22adceac868350d7a7079b"
+  version = "v1.0.7"
 
 [[projects]]
   name = "github.com/nesv/go-dynect"
@@ -384,10 +417,32 @@
   revision = "ded73eae5db7e7a0ef6f55aace87a2873c5d2b74"
 
 [[projects]]
+  branch = "master"
   name = "golang.org/x/crypto"
-  packages = ["ssh/terminal"]
-  revision = "d172538b2cfce0c13cee31e647d0367aa8cd2486"
+  packages = [
+    "ed25519",
+    "ed25519/internal/edwards25519",
+    "ssh/terminal"
+  ]
+  revision = "b080dc9a8c480b08e698fb1219160d598526310f"
 
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/net"
+  packages = [
+    "bpf",
+    "context",
+    "context/ctxhttp",
+    "http2",
+    "http2/hpack",
+    "idna",
+    "internal/iana",
+    "internal/socket",
+    "ipv4",
+    "ipv6",
+    "lex/httplex"
+  ]
+  revision = "894f8ed5849b15b810ae41e9590a0d05395bba27"
 
 [[projects]]
   name = "golang.org/x/oauth2"
@@ -402,7 +457,10 @@
 
 [[projects]]
   name = "golang.org/x/sys"
-  packages = ["unix"]
+  packages = [
+    "unix",
+    "windows"
+  ]
   revision = "8f0908ab3b2457e2e15403d3697c9ef5cb4b57a9"
 
 [[projects]]
@@ -623,6 +681,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "3cc043ee8be5b7cdba42793f12259ad23e13608d4b6a18523e540e14f029c0b0"
+  inputs-digest = "ef4ffc6d0df17bb5ef68b1943585f4b451a3381e25ad1d1a3546814c6d5ffea7"
   solver-name = "gps-cdcl"
   solver-version = 1
