@@ -3,7 +3,6 @@
 
 required = ["github.com/kubernetes/repo-infra/verify/boilerplate/test"]
 ignored = ["github.com/kubernetes/repo-infra/kazel"]
-
 [[constraint]]
   name = "github.com/Azure/azure-sdk-for-go"
   version = "~10.0.4-beta"
